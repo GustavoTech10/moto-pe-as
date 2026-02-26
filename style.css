@@ -1,0 +1,294 @@
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0b0b0b;
+    color: white;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    background: black;
+    padding: 15px;
+    font-size: 22px;
+    color: red;
+    border-bottom: 3px solid darkred;
+    position: relative; /* IMPORTANTE */
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container {
+    padding: 20px;
+}
+
+/* =========================
+   TITULOS
+========================= */
+h1 {
+    color: #ff1a1a;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* =========================
+   DASHBOARD CARDS
+========================= */
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    border: 1px solid #8B0000;
+    box-shadow: 0px 0px 15px rgba(139, 0, 0, 0.4);
+}
+
+.card h2 {
+    color: #ff1a1a;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+/* =========================
+   TABELA
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1a1a1a;
+    border: 1px solid #8B0000;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #000000;
+    color: #ff1a1a;
+    padding: 12px;
+    border-bottom: 2px solid #8B0000;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #111111;
+}
+
+tr:nth-child(odd) {
+    background-color: #1a1a1a;
+}
+
+tr:hover {
+    background-color: #2a0000;
+}
+
+/* =========================
+   BOTÕES PADRÃO
+========================= */
+button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-add {
+    background-color: #8B0000;
+}
+.btn-add:hover {
+    background-color: #5a0000;
+}
+
+.btn-edit {
+    background-color: #cc0000;
+}
+.btn-edit:hover {
+    background-color: #8B0000;
+}
+
+.btn-delete {
+    background-color: black;
+    border: 1px solid #8B0000;
+}
+.btn-delete:hover {
+    background-color: #2a0000;
+}
+
+.btn-voltar {
+    background-color: #8B0000;
+    margin-bottom: 15px;
+}
+.btn-voltar:hover {
+    background-color: #5a0000;
+}
+
+/* =========================
+   BOTÕES DASHBOARD
+========================= */
+.navbar {
+    background: black;
+    padding: 15px;
+    font-size: 22px;
+    color: red;
+    border-bottom: 3px solid darkred;
+    text-align: center;
+    position: relative;
+    justify-content: space-between;
+    
+}
+.dashboard-topo {
+    position: fixed;
+    justify-content: left;
+    top: 10px;
+    left: 20px;
+}
+
+/* =========================
+   CARD CADASTRAR / EDITAR
+========================= */
+.card-editar {
+    width: 420px;
+    margin: 80px auto;
+    padding: 35px;
+    border-radius: 15px;
+    background: #111;
+    border-top: 4px solid #ff1a1a;
+    box-shadow: 0 0 20px rgba(255,0,0,0.4);
+    animation: aparecer 0.4s ease-in-out;
+}
+
+/* LABEL */
+.card-editar label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #ddd;
+}
+
+/* INPUT */
+.card-editar input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #8B0000;
+    background: #000;
+    color: white;
+}
+
+/* INPUT FOCO */
+.card-editar input:focus {
+    outline: none;
+    border-color: #ff1a1a;
+    box-shadow: 0 0 5px #8B0000;
+}
+
+/* =========================
+   BOTÃO CENTRALIZADO
+========================= */
+.btn-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.btn-area button {
+    width: 250px;
+    background-color: #8B0000;
+    font-size: 16px;
+}
+
+.btn-area button:hover {
+    background-color: #ff1a1a;
+}
+
+/* =========================
+   LINK VOLTAR
+========================= */
+.voltar {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.voltar a {
+    color: #ff1a1a;
+    text-decoration: none;
+}
+
+.voltar a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   HEADER TABELA
+========================= */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.table-header h2 {
+    color: #ff1a1a;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* =========================
+   ANIMAÇÕES
+========================= */
+.piscar {
+    animation: piscarAnim 1s infinite;
+    font-weight: bold;
+}
+
+@keyframes piscarAnim {
+    0% { opacity: 1; color: #ff1a1a; }
+    50% { opacity: 0.3; color: #8B0000; }
+    100% { opacity: 1; color: #ff1a1a; }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
