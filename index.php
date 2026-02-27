@@ -37,6 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['produto'])) {
 ?>
 
 <!DOCTYPE html>
+<!-- BOTÃO VENDAS NO CANTO DIREITO -->
+<div class="vendas-topo">
+    <a href="vendas.php">
+        <button class="btn-dashboard" title="Ver Vendas">
+            <i class="fas fa-shopping-cart"></i> VENDAS
+        </button>
+    </a>
+    <a href="adicionar_venda.php" style="margin-left:8px;">
+        <button class="btn-dashboard" title="Registrar Venda">
+            <i class="fas fa-plus"></i> NOVA VENDA
+        </button>
+    </a>
+</div>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -71,12 +84,20 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    
 }
 
 /* BOTÃO DASHBOARD */
 .dashboard-topo {
     position: absolute;
     left: 15px;
+    z-index: 9999;
+}
+
+/* BOTÃO VENDAS (topo direito) */
+.vendas-topo {
+    position: absolute;
+    right: 15px;
     z-index: 9999;
 }
 
@@ -138,17 +159,6 @@ button {
     font-weight: bold;
 }
 
-.btn-edit {
-    background: red;
-    color: white;
-}
-
-.btn-delete {
-    background: black;
-    color: red;
-    border: 1px solid red;
-}
-
 .btn-add {
     background: darkred;
     color: white;
@@ -158,6 +168,13 @@ button {
 .btn-add:hover {
     background: red;
 }
+
+/* action dropdown for tables */
+.action-menu { position: relative; display: inline-block; }
+.action-dropdown { display: none; position: absolute; background: #111; border: 1px solid red; right: 0; min-width: 120px; z-index: 10; }
+.action-dropdown a { display: block; color: white; padding: 8px 10px; text-decoration: none; }
+.action-dropdown a:hover { background: #220000; }
+.acoes-btn { background: black; color: red; border: 1px solid red; padding: 6px 10px; border-radius:6px; cursor:pointer; }
 
 /* HEADER TABELA */
 .table-header {
@@ -221,6 +238,11 @@ input {
             <i class="fas fa-chart-line"></i> DASHBOARD
         </button>
     </a>
+    <a href="painel_adm.php" style="margin-left:8px;">
+        <button class="btn-dashboard" style="background-color: #ff9500; color: black;">
+            <i class="fas fa-lock"></i> PAINEL ADM
+        </button>
+    </a>
 </div>
 
 <!-- NAVBAR -->
@@ -280,14 +302,13 @@ Salvar Produto
 <td><?= $row['estoque'] ?></td>
 
 <td>
-<a href="editar_produto.php?id=<?= $row['id'] ?>">
-<button class="btn-edit">Editar</button>
-</a>
-
-<a href="excluir_produto.php?id=<?= $row['id'] ?>"
-onclick="return confirm('Excluir produto?')">
-<button class="btn-delete">Excluir</button>
-</a>
+    <div class="action-menu">
+        <button class="acoes-btn" onclick="toggleMenu('p<?= $row['id'] ?>')">Ações ▾</button>
+        <div id="p<?= $row['id'] ?>" class="action-dropdown">
+            <a href="editar_produto.php?id=<?= $row['id'] ?>">Editar</a>
+            <a href="excluir_produto.php?id=<?= $row['id'] ?>" onclick="return confirm('Excluir produto?')">Excluir</a>
+        </div>
+    </div>
 </td>
 
 </tr>
@@ -303,8 +324,8 @@ onclick="return confirm('Excluir produto?')">
 <!-- CLIENTES -->
 <div class="table-header">
 <h2>CLIENTES</h2>
-<a href="cadastrar_cliente.php">
-<button class="btn-add">Cadastrar Cliente</button>
+<a href="adicionar_cliente.php">
+    <button class="btn-add">Adicionar Cliente</button>
 </a>
 </div>
 
@@ -313,37 +334,65 @@ onclick="return confirm('Excluir produto?')">
 <th>Nome</th>
 <th>Telefone</th>
 <th>Email</th>
+<th>Ações</th>
 </tr>
 
 <?php while($row = $result_clientes->fetch_assoc()): ?>
 <tr>
 <td><?= htmlspecialchars($row['nome']) ?></td>
-<td><?= $row['telefone'] ?></td>
-<td><?= $row['email'] ?></td>
+<td><?= htmlspecialchars($row['telefone']) ?></td>
+<td><?= htmlspecialchars($row['email']) ?></td>
+<td>
+    <div class="action-menu">
+        <button class="acoes-btn" onclick="toggleMenu('c<?= $row['id'] ?>')">Ações ▾</button>
+        <div id="c<?= $row['id'] ?>" class="action-dropdown">
+            <a href="editar_cliente.php?id=<?= $row['id'] ?>">Editar</a>
+            <a href="excluir_cliente.php?id=<?= $row['id'] ?>" onclick="return confirm('Excluir cliente?')">Excluir</a>
+        </div>
+    </div>
+</td>
 </tr>
 <?php endwhile; ?>
 
 </table>
 
 <!-- FORNECEDORES -->
+<div class="table-header">
 <h2>FORNECEDORES</h2>
+<a href="adicionar_fornecedor.php"><button class="btn-add">Adicionar Fornecedor</button></a>
+</div>
 
 <table>
 <tr>
 <th>Nome</th>
 <th>CNPJ</th>
 <th>Telefone</th>
+<th>Ações</th>
 </tr>
 
 <?php while($row = $result_fornecedores->fetch_assoc()): ?>
 <tr>
 <td><?= htmlspecialchars($row['nome']) ?></td>
-<td><?= $row['cnpj'] ?></td>
-<td><?= $row['telefone'] ?></td>
+<td><?= htmlspecialchars($row['cnpj']) ?></td>
+<td><?= htmlspecialchars($row['telefone']) ?></td>
+<td>
+    <div class="action-menu">
+        <button class="acoes-btn" onclick="toggleMenu('f<?= $row['id'] ?>')">Ações ▾</button>
+        <div id="f<?= $row['id'] ?>" class="action-dropdown">
+            <a href="editar_fornecedor.php?id=<?= $row['id'] ?>">Editar</a>
+            <a href="excluir_fornecedor.php?id=<?= $row['id'] ?>" onclick="return confirm('Excluir fornecedor?')">Excluir</a>
+        </div>
+    </div>
+</td>
 </tr>
 <?php endwhile; ?>
 
 </table>
+
+<div style="text-align:right; margin-top:10px;">
+    <a href="funcionarios.php"><button class="btn-add">Funcionários</button></a>
+    <a href="adicionar_funcionario.php"><button class="btn-dashboard" style="margin-left:8px;">Novo Funcionário</button></a>
+</div>
 
 </div>
 
@@ -357,6 +406,18 @@ function toggleForm() {
         form.style.display = "block";
     }
 }
+
+function toggleMenu(id){
+    document.querySelectorAll('.action-dropdown').forEach(function(el){ el.style.display='none'; });
+    var el = document.getElementById(id);
+    if(el) el.style.display = (el.style.display === 'block')? 'none' : 'block';
+}
+
+window.addEventListener('click', function(e){
+    if(!e.target.matches('.acoes-btn')){
+        document.querySelectorAll('.action-dropdown').forEach(function(el){ el.style.display='none'; });
+    }
+});
 </script>
 
 </body>

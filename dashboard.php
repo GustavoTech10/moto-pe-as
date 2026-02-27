@@ -5,6 +5,9 @@ include 'conexao.php';
 $total_produtos = $conn->query("SELECT COUNT(*) as total FROM produtos")->fetch_assoc()['total'];
 $total_clientes = $conn->query("SELECT COUNT(*) as total FROM clientes")->fetch_assoc()['total'];
 $total_fornecedores = $conn->query("SELECT COUNT(*) as total FROM fornecedores")->fetch_assoc()['total'];
+// VENDAS: total de peças vendidas e receita
+$total_vendas = $conn->query("SELECT IFNULL(SUM(quantidade),0) as total FROM vendas")->fetch_assoc()['total'];
+$total_receita = $conn->query("SELECT IFNULL(SUM(total),0) as soma FROM vendas")->fetch_assoc()['soma'];
 
 // PRODUTOS
 $sql_produtos = "SELECT * FROM produtos";
@@ -20,7 +23,7 @@ $result_produtos = $conn->query($sql_produtos);
 <body>
 
 <div class="navbar">
-    MOTOPEÇAS - DASHBOARD
+    GUSTAVO MOTOPEÇAS - DASHBOARD
 </div>
 
 <div class="container">
@@ -43,6 +46,12 @@ $result_produtos = $conn->query($sql_produtos);
     <div class="card">
         <h2 class="piscar">FORNECEDORES</h2>
         <p><?php echo $total_fornecedores; ?></p>
+    </div>
+    
+    <div class="card">
+        <h2 class="piscar">PEÇAS VENDIDAS</h2>
+        <p><?php echo $total_vendas; ?></p>
+        <small style="display:block;margin-top:6px;color:#ddd;">R$ <?php echo number_format($total_receita,2,',','.'); ?></small>
     </div>
 </div>
 
